@@ -1,51 +1,30 @@
 import * as React from 'react';
-import {useState, useCallback} from 'react';
-import {createRoot} from 'react-dom/client';
+import {
+  useState, 
+  useEffect, 
+  useCallback, 
+  useContext
+} from 'react';
 import Map from 'react-map-gl';
 
 import DrawControl from './DrawControl';
+import ControlPanel from './ControlPanel';
+
+import { AppContext } from '../context/AppContext';
 
 const TOKEN = 'pk.eyJ1IjoiY3J2ZW5pMTk4OCIsImEiOiJjbHVsejdmcjEwbmUwMmpwN3VxYjNqcXlnIn0.FEkp4XJOMmXQtri6lg-W9Q'; // Set your mapbox token here
 
-const defaultPolygon = {
-    "52074af5b042fd9eeb485e24a14533e9": {
-        "id": "52074af5b042fd9eeb485e24a14533e9",
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-            "coordinates": [
-                [
-                    [
-                        -91.87030928039604,
-                        42.78022523095402
-                    ],
-                    [
-                        -91.83065550231979,
-                        42.76384393221136
-                    ],
-                    [
-                        -91.87391416931227,
-                        42.75161814062673
-                    ],
-                    [
-                        -91.90137998962443,
-                        42.76081921866469
-                    ],
-                    [
-                        -91.87030928039604,
-                        42.78022523095402
-                    ]
-                ]
-            ],
-            "type": "Polygon"
-        }
-    }
-}
-
 export default function MapComponent() {
+  const {titles, polygons} = useContext(AppContext);
+  const [initFeatures, setInitFeatures] = useState([]);
   const [features, setFeatures] = useState([]);
 
-  React.useEffect(() => console.log(features), [features])
+  useEffect(() => {
+    if (polygons) setInitFeatures(polygons)
+      console.log(polygons)
+  }, [polygons])
+
+  useEffect(() => console.log(titles), [titles])
 
   const onUpdate = useCallback(e => {
     setFeatures(currFeatures => {
@@ -89,8 +68,9 @@ export default function MapComponent() {
           onCreate={onUpdate}
           onUpdate={onUpdate}
           onDelete={onDelete}
-          defaultData={defaultPolygon}
+          addData={initFeatures}
         />
+        <ControlPanel polygons={features} titles={titles} />
       </Map>
     </div>
   );
