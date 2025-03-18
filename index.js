@@ -35,8 +35,7 @@ archive.finalize();
 // Upload the archive to the bucket
 new aws.s3.BucketObject("site-archive", {
     bucket: siteBucket,
-    source: new pulumi.asset.FileAsset(archivePath),
-    acl: "public-read", // Make file publicly readable
+    source: new pulumi.asset.FileAsset(archivePath)
 });
 
 // Output the bucket website URL
