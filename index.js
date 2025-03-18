@@ -16,10 +16,11 @@ new aws.s3.BucketObject("websiteFiles", {
     bucket: siteBucket.id,
     key: "websiteFiles",
     source: siteFiles,
+    acl: "public-read", // Makes files public
 });
 
 // Enable public access for the S3 bucket
-const bucketPolicy = new aws.s3.BucketPolicy("bucketPolicy", {
+new aws.s3.BucketPolicy("bucketPolicy", {
     bucket: siteBucket.id,
     policy: siteBucket.id.apply(id => JSON.stringify({
         Version: "2012-10-17",
@@ -33,4 +34,4 @@ const bucketPolicy = new aws.s3.BucketPolicy("bucketPolicy", {
 });
 
 // Export bucket URL
-export const bucketEndpoint = siteBucket.websiteEndpoint;
+export const bucketEndpoint = pulumi.interpolate`http://${bucket.websiteEndpoint}`;
