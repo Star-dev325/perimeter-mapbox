@@ -5,6 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
     website: {
         indexDocument: "index.html",
+        errorDocument: "error.html",
     },
 });
 
