@@ -11,12 +11,21 @@ const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
 
 // Upload files to S3 (Assuming 'dist' directory after build)
 const siteDir = "./build";  // Path to frontend build output
-const siteFiles = new pulumi.asset.FileArchive(siteDir);
+// const siteFiles = new pulumi.asset.FileArchive(siteDir);
 
-new aws.s3.BucketObject("websiteFiles", {
-    bucket: siteBucket.id,
-    source: siteFiles,
+fs.readdirSync(siteDir).forEach(file => {
+    const filePath = path.join(siteDir, file);
+    new aws.s3.BucketObject(file, {
+        bucket: siteBucket,
+        source: new pulumi.asset.FileAsset(filePath),
+        acl: "public-read", // Make file publicly readable
+    });
 });
+
+// new aws.s3.BucketObject("websiteFiles", {
+//     bucket: siteBucket.id,
+//     source: siteFiles,
+// });
 
 // Enable public access for the S3 bucket
 new aws.s3.BucketPolicy("bucketPolicy", {
