@@ -1,7 +1,6 @@
 {
     "name": "perimeter",
     "main": "index.js",
-    "type": "module",
     "dependencies": {
         "@mapbox/mapbox-gl-draw": "^1.4.3",
         "@pulumi/aws": "^6.0.0",
