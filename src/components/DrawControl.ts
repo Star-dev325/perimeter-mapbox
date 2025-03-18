@@ -1,9 +1,6 @@
-import * as React from 'react';
-import { useEffect } from 'react';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import {useControl} from 'react-map-gl';
 
-import type {MapRef, ControlPosition} from 'react-map-gl';
+import type {ControlPosition} from 'react-map-gl';
 import type {FeatureCollection} from 'geojson';
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
@@ -16,7 +13,7 @@ type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
 };
 
 export default function DrawControl(props: DrawControlProps) {
-  let draw = new MapboxDraw(props)
+  new MapboxDraw(props)
   
   return null;
 }

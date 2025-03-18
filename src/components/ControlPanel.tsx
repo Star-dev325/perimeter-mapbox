@@ -2,14 +2,8 @@ import * as React from 'react';
 import { useContext } from "react";
 
 import { AppContext } from '../context/AppContext';
-import type {FeatureCollection} from 'geojson';
 
-interface ControlPanelProps {
-  titles: string[],
-  polygons: FeatureCollection[]
-}
-
-function ControlPanel<ControlPanelProps>(props) {
+function ControlPanel(props) {
   const [title, setTitle] = React.useState<string>("");
   const {savePolygon, getPolygon} = useContext(AppContext);
 
