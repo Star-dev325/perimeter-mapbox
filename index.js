@@ -19,7 +19,7 @@ new aws.s3.BucketObject("websiteFiles", {
 });
 
 // Enable public access for the S3 bucket
-const bucketPolicy = new aws.s3.BucketPolicy("bucketPolicy", {
+new aws.s3.BucketPolicy("bucketPolicy", {
     bucket: siteBucket.id,
     policy: siteBucket.id.apply(id => JSON.stringify({
         Version: "2012-10-17",
