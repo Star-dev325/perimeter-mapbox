@@ -39,4 +39,3 @@ jobs:
         export PATH=$HOME/.pulumi/bin:$PATH
         pulumi stack select dev || pulumi stack init dev
         pulumi up --yes
-      working-directory: pulumi-infra
