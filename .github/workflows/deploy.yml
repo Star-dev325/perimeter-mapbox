@@ -1,0 +1,44 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm install
+      working-directory: perimeter-mapbox
+
+    - name: Build Frontend
+      run: npm run build
+      working-directory: perimeter-mapbox
+
+    - name: Install Pulumi
+      run: curl -fsSL https://get.pulumi.com | sh
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Deploy with Pulumi
+      run: |
+        export PATH=$HOME/.pulumi/bin:$PATH
+        pulumi stack select dev || pulumi stack init dev
+        pulumi up --yes
+      working-directory: pulumi-infra
