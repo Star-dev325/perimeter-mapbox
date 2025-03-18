@@ -13,35 +13,31 @@ const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
 
 // Upload files to S3 (Assuming 'dist' directory after build)
 const siteDir = "./build";  // Path to frontend build output
-// const siteFiles = new pulumi.asset.FileArchive(siteDir);
+const archivePath = path.join(siteDir, "site-archive.zip");
 
-fs.readdirSync(siteDir).forEach(file => {
-    const filePath = path.join(siteDir, file);
-    new aws.s3.BucketObject(file, {
-        bucket: siteBucket,
-        source: new pulumi.asset.FileAsset(filePath),
-        acl: "public-read", // Make file publicly readable
-    });
+const archiver = require("archiver");
+const output = fs.createWriteStream(archivePath);
+const archive = archiver("zip");
+
+output.on('close', function () {
+    console.log(archive.pointer() + ' total bytes');
+    console.log('Archiver has been finalized and the output file descriptor has closed.');
 });
 
-// new aws.s3.BucketObject("websiteFiles", {
-//     bucket: siteBucket.id,
-//     source: siteFiles,
-// });
-
-// Enable public access for the S3 bucket
-new aws.s3.BucketPolicy("bucketPolicy", {
-    bucket: siteBucket.id,
-    policy: siteBucket.id.apply(id => JSON.stringify({
-        Version: "2012-10-17",
-        Statement: [{
-            Effect: "Allow",
-            Principal: "*",
-            Action: ["s3:GetObject"],
-            Resource: [`arn:aws:s3:::${id}/*`],
-        }],
-    })),
+archive.on('error', function(err){
+    throw err;
 });
 
-// Export bucket URL
-export const bucketEndpoint = siteBucket.websiteEndpoint;
+archive.pipe(output);
+archive.directory(siteDir, false);
+archive.finalize();
+
+// Upload the archive to the bucket
+new aws.s3.BucketObject("site-archive", {
+    bucket: siteBucket,
+    source: new pulumi.asset.FileAsset(archivePath),
+    acl: "public-read", // Make file publicly readable
+});
+
+// Output the bucket website URL
+exports.websiteUrl = siteBucket.websiteEndpoint;
