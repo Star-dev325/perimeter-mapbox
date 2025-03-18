@@ -34,4 +34,4 @@ new aws.s3.BucketPolicy("bucketPolicy", {
 });
 
 // Export bucket URL
-export const bucketEndpoint = pulumi.interpolate`http://${bucket.websiteEndpoint}`;
+export const bucketEndpoint = pulumi.interpolate`http://${siteBucket.websiteEndpoint}`;
