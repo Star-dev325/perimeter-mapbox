@@ -1,6 +1,7 @@
 {
     "name": "perimeter",
     "main": "index.js",
+    "type": "module",
     "dependencies": {
         "@pulumi/pulumi": "^3.0.0",
         "@pulumi/aws": "^6.0.0",
