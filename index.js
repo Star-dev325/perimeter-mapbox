@@ -2,6 +2,7 @@ import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
 import * as path from "path";
+import * as archiver from "archiver"
 
 // Create an S3 bucket for hosting the website
 const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
@@ -15,7 +16,6 @@ const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
 const siteDir = "./build";  // Path to frontend build output
 const archivePath = path.join(siteDir, "site-archive.zip");
 
-const archiver = require("archiver");
 const output = fs.createWriteStream(archivePath);
 const archive = archiver("zip");
 
