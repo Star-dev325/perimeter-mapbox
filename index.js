@@ -12,7 +12,7 @@ const siteBucket = new aws.s3.Bucket("my-site-bucket", {
 });
 
 // Archive the directory
-const siteDir = "/build"; // Replace with your website directory
+const siteDir = "./build"; // Replace with your website directory
 const archivePath = path.join(siteDir, "site-archive.zip");
 
 const archiver = require("archiver");
