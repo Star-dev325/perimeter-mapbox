@@ -9,12 +9,11 @@ const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
 });
 
 // Upload files to S3 (Assuming 'dist' directory after build)
-const siteDir = "./dist";  // Path to frontend build output
+const siteDir = "./build";  // Path to frontend build output
 const siteFiles = new pulumi.asset.FileArchive(siteDir);
 
 new aws.s3.BucketObject("websiteFiles", {
     bucket: siteBucket.id,
-    key: "websiteFiles",
     source: siteFiles,
 });
 
