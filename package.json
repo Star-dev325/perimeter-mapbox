@@ -16,6 +16,7 @@
         "@types/node": "^16.18.95",
         "@types/react": "^18.2.74",
         "@types/react-dom": "^18.2.24",
+        "archiver": "^7.0.1",
         "mapbox-gl": "^3.2.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
