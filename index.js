@@ -2,7 +2,7 @@ import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
 import * as path from "path";
-import * as archiver from "archiver"
+import archiver from "archiver"
 
 // Create an S3 bucket for hosting the website
 const siteBucket = new aws.s3.Bucket("myFrontendBucket", {
