@@ -16,7 +16,6 @@ new aws.s3.BucketObject("websiteFiles", {
     bucket: siteBucket.id,
     key: "websiteFiles",
     source: siteFiles,
-    acl: "public-read", // Makes files public
 });
 
 // Enable public access for the S3 bucket
