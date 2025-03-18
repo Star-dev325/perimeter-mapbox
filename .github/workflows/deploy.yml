@@ -20,11 +20,9 @@ jobs:
 
     - name: Install Dependencies
       run: npm install
-      working-directory: perimeter-mapbox
 
     - name: Build Frontend
       run: npm run build
-      working-directory: perimeter-mapbox
 
     - name: Install Pulumi
       run: curl -fsSL https://get.pulumi.com | sh
