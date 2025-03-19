@@ -1,5 +1,5 @@
-name: aws-ts-static-website
-description: Static website example
+name: perimeter-mapbox-typescript-infra
+description: perimeter-mapbox typescript infra
 runtime: nodejs
 template:
   config:
