@@ -1,5 +1,5 @@
-name: perimeter-aws-typescript-infra-new
-description: periemter aws typescript infra new
+name: new-10
+description: new10
 runtime:
   name: nodejs
   options:
