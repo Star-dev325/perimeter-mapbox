@@ -1,14 +1,11 @@
 {
-    "name": "perimeter-mapbox",
-    "main": "index.ts",
+    "name": "perimeter",
+    "main": "index.js",
     "dependencies": {
         "@mapbox/mapbox-gl-draw": "^1.4.3",
-<<<<<<< HEAD
         "@pulumi/aws": "^6.0.0",
         "@pulumi/awsx": "^2.0.2",
         "@pulumi/pulumi": "^3.0.0",
-=======
->>>>>>> 29467379fc724a7c036f4f77328a7c6707f21f1a
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
@@ -20,7 +17,6 @@
         "@types/react-dom": "^18.2.24",
         "archiver": "^7.0.1",
         "mapbox-gl": "^3.2.0",
-        "mime": "^2.2.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-map-gl": "^7.1.7",
@@ -51,5 +47,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "@types/archiver": "^6.0.3"
     }
 }

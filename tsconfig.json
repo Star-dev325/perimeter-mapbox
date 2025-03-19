@@ -1,18 +1,11 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "outDir": "bin",
-        "target": "es2020",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "experimentalDecorators": true,
-        "pretty": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.ts"
-    ]
+  "compilerOptions": {
+    "target": "es2020",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "module": "ES2020",
+    "sourceMap": true
+  }
 }
