@@ -1,11 +1,8 @@
 {
-    "name": "perimeter",
-    "main": "index.js",
+    "name": "perimeter-mapbox",
+    "main": "index.ts",
     "dependencies": {
         "@mapbox/mapbox-gl-draw": "^1.4.3",
-        "@pulumi/aws": "^6.0.0",
-        "@pulumi/awsx": "^2.0.2",
-        "@pulumi/pulumi": "^3.0.0",
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
@@ -48,8 +45,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "@types/archiver": "^6.0.3"
     }
 }
