@@ -1,42 +1,62 @@
-const pulumi = require("@pulumi/pulumi");
-const aws = require("@pulumi/aws");
-const fs = require("fs");
-const path = require("path");
+import * as aws from "@pulumi/aws";
+import * as pulumi from "@pulumi/pulumi";
+import * as fs from "fs";
+import * as path from "path";
+import mime from "mime"; // Ensure mime is installed with `npm install mime`
 
-// Create an S3 bucket
-const siteBucket = new aws.s3.Bucket("my-site-bucket", {
+// Create an S3 bucket with website hosting
+const bucket = new aws.s3.Bucket("myFrontendBucket", {
     website: {
         indexDocument: "index.html",
-        errorDocument: "error.html",
+        errorDocument: "index.html",
     },
 });
 
-// Archive the directory
-const siteDir = "./build"; // Replace with your website directory
-const archivePath = path.join(siteDir, "site-archive.zip");
+// Function to recursively get all files in a directory
+function getAllFiles(dirPath, arrayOfFiles) {
+    const files = fs.readdirSync(dirPath);
+    files.forEach((file) => {
+        const fullPath = path.join(dirPath, file);
+        if (fs.statSync(fullPath).isDirectory()) {
+            arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
+        } else {
+            arrayOfFiles.push(fullPath);
+        }
+    });
+    return arrayOfFiles;
+}
 
-const archiver = require("archiver");
-const output = fs.createWriteStream(archivePath);
-const archive = archiver("zip");
+// Define build directory
+const siteDir = "./build";
+const files = getAllFiles(siteDir);
 
-output.on('close', function () {
-    console.log(archive.pointer() + ' total bytes');
-    console.log('Archiver has been finalized and the output file descriptor has closed.');
+// Upload each file to S3
+files.forEach((file) => {
+    const relativeFilePath = path.relative(siteDir, file); // Get path relative to build directory
+    new aws.s3.BucketObject(relativeFilePath, {
+        bucket: bucket,
+        source: new pulumi.asset.FileAsset(file),
+        contentType: mime.getType(file) || "application/octet-stream",
+    });
 });
 
-archive.on('error', function(err){
-    throw err;
+// Apply a public bucket policy
+new aws.s3.BucketPolicy("bucketPolicy", {
+    bucket: bucket.id,
+    policy: bucket.id.apply((id) =>
+        JSON.stringify({
+            Version: "2012-10-17",
+            Statement: [
+                {
+                    Effect: "Allow",
+                    Principal: "*",
+                    Action: "s3:GetObject",
+                    Resource: `arn:aws:s3:::${id}/*`,
+                },
+            ],
+        })
+    ),
 });
 
-archive.pipe(output);
-archive.directory(siteDir, false);
-archive.finalize();
-
-// Upload the archive to the bucket
-new aws.s3.BucketObject("site-archive", {
-    bucket: siteBucket,
-    source: new pulumi.asset.FileAsset(archivePath)
-});
-
-// Output the bucket website URL
-exports.websiteUrl = siteBucket.websiteEndpoint;
+// Export the bucket website URL
+export const bucketEndpoint = pulumi.interpolate`http://${bucket.websiteEndpoint}`;
