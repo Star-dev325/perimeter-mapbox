@@ -1,7 +1,7 @@
 import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
-import mime from "mime/lite";
+import mime from "mime";
 
 // Create an S3 bucket with website hosting
 const bucket = new aws.s3.Bucket("myFrontendBucket", {
