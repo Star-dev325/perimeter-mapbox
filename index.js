@@ -28,7 +28,7 @@ function getAllFiles(dirPath, arrayOfFiles) {
 
 // Define build directory
 const siteDir = "./build";
-const files = getAllFiles(siteDir);
+const files = getAllFiles(siteDir, []);
 
 // Upload each file to S3
 files.forEach((file) => {
