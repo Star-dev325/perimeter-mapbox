@@ -1,7 +1,7 @@
 import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
-import * as mime from "mime";
+import mime from "mime";
 
 // Create an S3 bucket with website hosting
 const bucket = new aws.s3.Bucket("myFrontendBucket", {
@@ -17,7 +17,7 @@ fs.readdirSync(siteDir).forEach(file => {
     new aws.s3.BucketObject(file, {
         bucket: bucket,
         source: new pulumi.asset.FileAsset(`${siteDir}/${file}`),
-        contentType: mime.getType(file) || undefined, // Set correct MIME type
+        contentType: mime.default.getType(file) || undefined,
     });
 });
 
