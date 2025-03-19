@@ -1,11 +1,13 @@
-name: perimeter-mapbox-typescript-infra
-description: perimeter-mapbox typescript infra
-runtime: nodejs
-template:
-  config:
-    aws:region:
-      description: The AWS region to deploy into
-      default: us-east-1
+name: perimeter-aws-typescript-infra-new
+description: periemter aws typescript infra new
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
     targetDomain:
       description: The domain to serve the website at (e.g. www.example.com)
     pathToWebsiteContents:
