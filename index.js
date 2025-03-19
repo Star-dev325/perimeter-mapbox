@@ -17,7 +17,7 @@ fs.readdirSync(siteDir).forEach(file => {
     new aws.s3.BucketObject(file, {
         bucket: bucket,
         source: new pulumi.asset.FileAsset(`${siteDir}/${file}`),
-        contentType: mime.default.getType(file) || undefined,
+        contentType: mime.getType(file) || "application/octet-stream"
     });
 });
 
