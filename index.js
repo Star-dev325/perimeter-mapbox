@@ -34,7 +34,7 @@ const files = getAllFiles(siteDir, []);
 files.forEach((file) => {
     const relativeFilePath = path.relative(siteDir, file); // Get path relative to build directory
     new aws.s3.BucketObject(relativeFilePath, {
-        bucket: bucket,
+        bucket: bucket.id,
         source: new pulumi.asset.FileAsset(file),
         contentType: mime.getType(file) || "application/octet-stream",
     });
