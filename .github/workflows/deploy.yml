@@ -40,4 +40,4 @@ jobs:
         export PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
         pulumi stack select dev || pulumi stack init dev
         pulumi up --yes
-      working-directory: ../infra
+      working-directory: ./infra
