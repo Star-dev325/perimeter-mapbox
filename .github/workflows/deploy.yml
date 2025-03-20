@@ -1,12 +1,13 @@
 name: Deploy Frontend
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types:
+      - closed
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true # Ensure it runs only on merge
     runs-on: ubuntu-latest
 
     steps:
