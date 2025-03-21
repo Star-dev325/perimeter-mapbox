@@ -70,7 +70,7 @@ export default function MapComponent() {
           onDelete={onDelete}
           addData={initFeatures}
         />
-        <ControlPanel polygons={features} titles={titles} />
+        {/* <ControlPanel polygons={features} titles={titles} /> */}
       </Map>
     </div>
   );
