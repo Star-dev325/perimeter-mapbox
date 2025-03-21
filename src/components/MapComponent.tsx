@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   useState, 
   useEffect, 
-  useCallback, 
+  // useCallback, 
   useContext
 } from 'react';
 import Map from 'react-map-gl';
@@ -17,7 +17,7 @@ const TOKEN = 'pk.eyJ1IjoiY3J2ZW5pMTk4OCIsImEiOiJjbHVsejdmcjEwbmUwMmpwN3VxYjNqcX
 export default function MapComponent() {
   const {titles, polygons} = useContext(AppContext);
   const [initFeatures, setInitFeatures] = useState([]);
-  const [features, setFeatures] = useState([]);
+  // const [features, setFeatures] = useState([]);
 
   useEffect(() => {
     if (polygons) setInitFeatures(polygons)
@@ -26,25 +26,25 @@ export default function MapComponent() {
 
   useEffect(() => console.log(titles), [titles])
 
-  const onUpdate = useCallback(e => {
-    setFeatures(currFeatures => {
-      const newFeatures = {...currFeatures};
-      for (const f of e.features) {
-        newFeatures[f.id] = f;
-      }
-      return newFeatures;
-    });
-  }, []);
+  // const onUpdate = useCallback(e => {
+  //   setFeatures(currFeatures => {
+  //     const newFeatures = {...currFeatures};
+  //     for (const f of e.features) {
+  //       newFeatures[f.id] = f;
+  //     }
+  //     return newFeatures;
+  //   });
+  // }, []);
 
-  const onDelete = useCallback(e => {
-    setFeatures(currFeatures => {
-      const newFeatures = {...currFeatures};
-      for (const f of e.features) {
-        delete newFeatures[f.id];
-      }
-      return newFeatures;
-    });
-  }, []);
+  // const onDelete = useCallback(e => {
+  //   setFeatures(currFeatures => {
+  //     const newFeatures = {...currFeatures};
+  //     for (const f of e.features) {
+  //       delete newFeatures[f.id];
+  //     }
+  //     return newFeatures;
+  //   });
+  // }, []);
 
   return (
     <div className='perimeter-map'>
@@ -65,9 +65,9 @@ export default function MapComponent() {
             trash: true
           }}
           defaultMode="draw_polygon"
-          onCreate={onUpdate}
-          onUpdate={onUpdate}
-          onDelete={onDelete}
+          // onCreate={onUpdate}
+          // onUpdate={onUpdate}
+          // onDelete={onDelete}
           addData={initFeatures}
         />
         {/* <ControlPanel polygons={features} titles={titles} /> */}
