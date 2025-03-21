@@ -8,7 +8,7 @@ import {
 import Map from 'react-map-gl';
 
 import DrawControl from './DrawControl';
-import ControlPanel from './ControlPanel';
+// import ControlPanel from './ControlPanel';
 
 import { AppContext } from '../context/AppContext';
 
