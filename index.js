@@ -15,8 +15,6 @@ const bucket = new aws.s3.Bucket(bucketName, {
         errorDocument: "index.html",
     },
 });
-
-// Function to recursively get all files in a directory
 function getAllFiles(dirPath, arrayOfFiles) {
     const files = fs.readdirSync(dirPath);
     files.forEach((file) => {
