@@ -4,8 +4,12 @@ import * as fs from "fs";
 import * as path from "path";
 import mime from "mime"; // Ensure mime is installed with `npm install mime`
 
+// Load stack configuration
+const config = new pulumi.Config();
+const bucketName = config.require("bucketName");
+
 // Create an S3 bucket with website hosting
-const bucket = new aws.s3.Bucket("myFrontendBucket", {
+const bucket = new aws.s3.Bucket(bucketName, {
     website: {
         indexDocument: "index.html",
         errorDocument: "index.html",
