@@ -39,5 +39,5 @@ jobs:
       run: |
         export PATH=$HOME/.pulumi/bin:$PATH
         export PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
-        pulumi stack select production || pulumi stack init production
+        pulumi stack select dev || pulumi stack init dev
         pulumi up --yes
